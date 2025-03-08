@@ -1,3 +1,595 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #1E1E1E;
+    --card-color: #101010;
+    --card-seconday-color: #191919;
+    --primary-color: #E6E6E6;
+    --secondary-color: #999999;
+    --thirty-color: #CCCCCC;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('assets/fonts/Manrope-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('assets/fonts/Manrope-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+body {
+    background: var(--bg-color);
+    font-family: 'Manrope', sans-serif;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 446px 595px auto;
+    gap: 20px;
+    padding: 30px 50px;
+}
+
+.card {
+    background: var(--card-color);
+    border-radius: 20px;
+    display: flex;
+    padding: 20px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Первая колонка */
+.column-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    width: 446px;
+    height: 260px;
+    flex-direction: column;
+}
+
+.card .card-top {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 88px;
+}
+
+.card-top .card-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+
+.card-top .card-title {
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+.card-bottom {
+    height: 172px;
+}
+
+.stack-skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.stack-skill {
+    width: 188px;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-seconday-color);
+    border-radius: 16px;
+    padding: 8px 16px 8px 8px;
+}
+
+.stack-skill .skill-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stack-skill .skill-icon span {
+    font-weight: normal;
+}
+
+.stack-skill .skill-icon img {
+    width: 48px;
+    height: 48px;
+}
+
+.stack-skill .hover-effect {
+    transition: .5s;
+    opacity: 0;
+}
+
+.stack-skill:hover .hover-effect {
+    transform: rotate(-30deg);
+    opacity: 1;
+}
+
+.carousel-container__works {
+    position: relative;
+    max-width: 446px;
+    width: calc(100% + 38px);
+    overflow: hidden;
+    margin-left: -20px;
+}
+
+.carousel-works {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 200%;
+    animation: scroll 20s linear infinite;
+}
+
+.carousel-work__slide {
+    flex: 0 0 calc(100% / 12); /* 12 = 6 изображений × 2 копии */
+    box-sizing: border-box;
+}
+
+.carousel-work__slide img {
+    width: 200px;
+    height: 112px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.primary-button {
+    width: 192px;
+    height: 60px;
+    border-radius: 16px;
+    background: #ffffff;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -37px auto 0 auto;
+    z-index: 2;
+    position: relative;
+}
+
+.primary-button:hover {
+    cursor: pointer;
+}
+
+.carousel-service__container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.carousel-service__left {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 200%;
+    animation: scroll 20s linear infinite;
+}
+
+.carousel-service__right {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 200%;
+    animation: scrollRight 20s linear infinite;
+}
+
+.carousel-service__slide {
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--card-seconday-color);
+    padding: 8px 16px 8px 8px;
+    border-radius: 16px;
+}
+
+.carousel-service__slide .service-icon {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 210px;
+}
+
+.carousel-service__slide .service-icon img {
+    width: 48px;
+    height: 48px;
+}
+
+/* Вторая колонка */
+.column-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.statistics {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.stats-number {
+    font-size: 64px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.stats-number:not(span) {
+    background: linear-gradient(to bottom, #999999, #0F0F0F);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.stats-number span {
+    font-size: 40px;
+    background: var(--card-color) !important;
+    -webkit-text-fill-color: #ffffff;
+    color: #ffffff !important;
+}
+
+.stats-card {
+    height: 36px;
+    background: var(--card-seconday-color);
+    border-radius: 57px;
+    padding: 6px 10px;
+}
+
+.stats-icon {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.small-cards-container {
+    display: flex;
+    gap: 20px;
+}
+
+.small-cards-container .card {
+    width: 185px;
+    height: 143px;
+}
+
+.column-2 .card-middle {
+    width: 595px;
+    height: 377px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.profile-top {
+    display: flex;
+    gap: 20px;
+}
+
+.profile-avatar, .profile-avatar img {
+    width: 130px;
+    height: 140px;
+}
+
+.profile-information {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: center;
+    height: 114px;
+    width: 100%;
+}
+
+.profile-information .information-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-information .information-top .profile-status {
+    width: 181px;
+    height: 36px;
+    background: var(--card-seconday-color);
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-information .information-top .profile-icon {
+    display: flex;
+    gap: 8px;
+}
+
+.profile-information .information-top .profile-resume {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+    gap: 10px;
+}
+
+.profile-information .information-top .profile-resume img {
+    width: 48px;
+    height: 48px;
+    transition: .2s;
+}
+
+.profile-information .information-top .profile-resume img:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.profile-information .information-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-information .information-bottom .nickname {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.profile-information .information-bottom .im {
+    color: var(--secondary-color);
+    font-weight: 400;
+}
+
+.profile-information .information-bottom .role {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.profile-middle {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.profile-card {
+    background: var(--card-seconday-color);
+    padding: 6px 14px 6px 10px;
+    border-radius: 57px;
+    height: 32px;
+}
+
+.profile-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-bottom {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.contact-button {
+    height: 59px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    background: var(--card-seconday-color);
+    border-radius: 12px;
+    width: 240px;
+    position: relative;
+    overflow: visible;
+    color: var(--secondary-color);
+    font-weight: normal;
+}
+
+.contact-button::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 12px;
+    z-index: -1;
+}
+
+.contact-button .animated-dot {
+    position: absolute;
+    width: 15px;
+    height: 1px;
+    background-color: white;
+    opacity: 0;
+    pointer-events: none;
+    /* Используем path для анимации */
+    offset-path: path('M12,0 H228 A12,12 0 0 1 240,12 V47 A12,12 0 0 1 228,59 H12 A12,12 0 0 1 0,47 V12 A12,12 0 0 1 12,0 Z');
+    offset-rotate: auto;
+    offset-distance: 0%;
+    top: 0%;
+    left: 0%;
+}
+
+.contact-button:hover .animated-dot {
+    opacity: 1;
+    animation: move-on-path 5s linear infinite;
+}
+
+.contact-button:hover {
+    background: rgb(31, 31, 31);
+    cursor: pointer;
+}
+
+.contact-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.column-2 .card-bottom {
+    width: 595px;
+    height: 260px;
+    max-width: 595px;
+    gap: 25px;
+}
+
+.client-item {
+    width: 140px !important;
+    height: 60px !important;
+}
+
+.client-item img {
+    width: 100px !important;
+    height: 40px;
+}
+
+/* Верхние карточки колонок 3 и 4 */
+.columns-34-top {
+    display: flex;
+    gap: 20px;
+}
+
+.columns-34-top .column-3-top {
+    width: 434px;
+    height: 436px;
+}
+
+.columns-34-top .column-4-top {
+    width: 290px;
+    height: 436px;
+}
+
+.columns-34-top .column-4-top .card-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-bottom .steps {
+    width: 229px !important;
+    height: 50px !important;
+    cursor: pointer;
+}
+
+.card-bottom .steps:hover svg path {
+    fill: #fff;
+}
+
+.card-bottom .steps .skill-icon span {
+    opacity: 0.7;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+/* Нижние карточки колонок 3 и 4 */
+.columns-34-bottom {
+    display: flex;
+    gap: 20px;
+    margin-top: 12px;
+}
+
+.columns-34-bottom .column-3-bottom {
+    width: 302px;
+    height: 364px;
+}
+
+.column-3-bottom .card-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.column-3-bottom .contact {
+    width: 227px;
+    color: var(--secondary-color);
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.column-3-bottom .contact:hover svg g path {
+    fill: #fff;
+}
+
+
+.columns-34-bottom .column-4-bottom {
+    width: 422px;
+    height: 364px;
+}
+
+
+.call-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.call-badge {
+    width: 70px;
+    height: 70px;
+}
+
+.call-title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.call-top p {
+    font-size: 16px;
+    color: var(--secondary-color);
+    font-weight: normal;
+}
+
+.call-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.call-button {
+    width: 240px;
+    height: 60px;
+    font-size: 18px;
+    color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+    background: var(--card-seconday-color);
+    border: none;
+}
+
 .call-block {
     height: 59px;
     display: flex;
@@ -21,7 +613,7 @@
 
 .call-block .animated-dot {
     position: absolute;
-    width: 5px;
+    width: 15px;
     height: 1px;
     background-color: white;
     opacity: 0;
@@ -30,14 +622,44 @@
     offset-path: path('M12,0 H228 A12,12 0 0 1 240,12 V47 A12,12 0 0 1 228,59 H12 A12,12 0 0 1 0,47 V12 A12,12 0 0 1 12,0 Z');
     offset-rotate: auto;
     offset-distance: 0%;
+    top: 0;
+    left: 0;
 }
 
 .call-block:hover .animated-dot {
     opacity: 1;
-    animation: move-on-path 3s linear infinite;
+    animation: move-on-path 5s linear infinite;
 }
 
-.call-block:hover {
+.call-block:hover, .call-block:hover button{
     background: rgb(31, 31, 31);
     cursor: pointer;
+}
+
+/* Анимация для бесконечного движения */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Двигаемся на половину ширины (первую копию) */
+    }
+}
+
+@keyframes scrollRight {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0); /* Двигаемся на половину ширины (первую копию) */
+    }
+}
+
+@keyframes move-on-path {
+    0% {
+        offset-distance: 0%;
+    }
+    100% {
+        offset-distance: 100%;
+    }
 }
