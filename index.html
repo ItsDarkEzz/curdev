@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контейнер с карточками - Grid/Flexbox</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #1E1E1E;
+            --card-color: #101010;
+            --card-seconday-color: #191919;
+            --primary-color: #E6E6E6;
+            --secondary-color: #999999;
+            --thirty-color: #CCCCCC;
+        }
+
+        @font-face {
+            font-family: 'Manrope';
+            src: url('assets/fonts/Manrope-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Manrope';
+            src: url('assets/fonts/Manrope-SemiBold.ttf') format('truetype');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        body {
+            background: var(--bg-color);
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 446px 595px auto;
+            gap: 20px;
+            padding: 30px 50px;
+        }
+
+        .card {
+            background: var(--card-color);
+            border-radius: 20px;
+            display: flex;
+            padding: 20px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Первая колонка */
+        .column-1 {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            width: 446px;
+            height: 260px;
+            flex-direction: column;
+        }
+
+        .card .card-top {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            height: 88px;
+        }
+
+        .card-top .card-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--secondary-color);
+        }
+
+        .card-top .card-title {
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        .card-bottom {
+            height: 172px;
+        }
+
+        .stack-skills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .stack-skill {
+            width: 188px;
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-seconday-color);
+            border-radius: 16px;
+            padding: 8px 16px 8px 8px;
+        }
+
+        .stack-skill .skill-icon {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stack-skill .skill-icon span {
+            font-weight: normal;
+        }
+
+        .stack-skill .skill-icon img {
+            width: 48px;
+            height: 48px;
+        }
+
+        .stack-skill .hover-effect {
+            transition: .5s;
+            opacity: 0;
+        }
+
+        .stack-skill:hover .hover-effect {
+            transform: rotate(-30deg);
+            opacity: 1;
+        }
+
+        .carousel-container__works {
+            position: relative;
+            max-width: 446px;
+            width: calc(100% + 38px);
+            overflow: hidden;
+            margin-left: -20px;
+        }
+
+        .carousel-works {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            width: 200%;
+            animation: scroll 20s linear infinite;
+        }
+
+        .carousel-work__slide {
+            flex: 0 0 calc(100% / 12); /* 12 = 6 изображений × 2 копии */
+            box-sizing: border-box;
+        }
+
+        .carousel-work__slide img {
+            width: 200px;
+            height: 112px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .primary-button {
+            width: 192px;
+            height: 60px;
+            border-radius: 16px;
+            background: #ffffff;
+            color: #000000;
+            font-size: 16px;
+            font-weight: 600;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: -37px auto 0 auto;
+            z-index: 2;
+            position: relative;
+        }
+
+        .primary-button:hover {
+            cursor: pointer;
+        }
+
+        .carousel-service__container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .carousel-service__left {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            width: 200%;
+            animation: scroll 20s linear infinite;
+        }
+
+        .carousel-service__right {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            width: 200%;
+            animation: scrollRight 20s linear infinite;
+        }
+
+        .carousel-service__slide {
+            height: 56px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--card-seconday-color);
+            padding: 8px 16px 8px 8px;
+            border-radius: 16px;
+        }
+
+        .carousel-service__slide .service-icon {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            width: 210px;
+        }
+
+        .carousel-service__slide .service-icon img {
+            width: 48px;
+            height: 48px;
+        }
+
+        /* Вторая колонка */
+        .column-2 {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .statistics {
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stats-number {
+            font-size: 64px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .stats-number:not(span) {
+            background: linear-gradient(to bottom, #999999, #0F0F0F);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .stats-number span {
+            font-size: 40px;
+            background: var(--card-color) !important;
+            -webkit-text-fill-color: #ffffff;
+            color: #ffffff !important;
+        }
+
+        .stats-card {
+            height: 36px;
+            background: var(--card-seconday-color);
+            border-radius: 57px;
+            padding: 6px 10px;
+        }
+
+        .stats-icon {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .small-cards-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .small-cards-container .card {
+            width: 185px;
+            height: 143px;
+        }
+
+        .column-2 .card-middle {
+            width: 595px;
+            height: 377px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .profile-top {
+            display: flex;
+            gap: 20px;
+        }
+
+        .profile-avatar, .profile-avatar img {
+            width: 130px;
+            height: 140px;
+        }
+
+        .profile-information {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+            justify-content: center;
+            height: 114px;
+            width: 100%;
+        }
+
+        .profile-information .information-top {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .profile-information .information-top .profile-status {
+            width: 181px;
+            height: 36px;
+            background: var(--card-seconday-color);
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-information .information-top .profile-icon {
+            display: flex;
+            gap: 8px;
+        }
+
+        .profile-information .information-top .profile-resume {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            height: 48px;
+            gap: 10px;
+        }
+
+        .profile-information .information-top .profile-resume img {
+            width: 48px;
+            height: 48px;
+            transition: .2s;
+        }
+
+        .profile-information .information-top .profile-resume img:hover {
+            transform: translateY(-5px);
+            cursor: pointer;
+        }
+
+        .profile-information .information-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .profile-information .information-bottom .nickname {
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        .profile-information .information-bottom .im {
+            color: var(--secondary-color);
+            font-weight: 400;
+        }
+
+        .profile-information .information-bottom .role {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .profile-middle {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .profile-card {
+            background: var(--card-seconday-color);
+            padding: 6px 14px 6px 10px;
+            border-radius: 57px;
+            height: 32px;
+        }
+
+        .profile-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .profile-bottom {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .contact-button {
+            height: 59px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            background: var(--card-seconday-color);
+            border-radius: 12px;
+            width: 240px;
+            position: relative;
+            overflow: visible;
+            color: var(--secondary-color);
+            font-weight: normal;
+        }
+
+        .contact-button::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 12px;
+            z-index: -1;
+        }
+
+        .contact-button .animated-dot {
+            position: absolute;
+            width: 15px;
+            height: 1px;
+            background-color: white;
+            opacity: 0;
+            pointer-events: none;
+            /* Используем path для анимации */
+            offset-path: path('M12,0 H228 A12,12 0 0 1 240,12 V47 A12,12 0 0 1 228,59 H12 A12,12 0 0 1 0,47 V12 A12,12 0 0 1 12,0 Z');
+            offset-rotate: auto;
+            offset-distance: 0%;
+            top: 0%;
+            left: 0%;
+        }
+
+        .contact-button:hover .animated-dot {
+            opacity: 1;
+            animation: move-on-path 5s linear infinite;
+        }
+
+        .contact-button:hover {
+            background: rgb(31, 31, 31);
+            cursor: pointer;
+        }
+
+        .contact-icon {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .column-2 .card-bottom {
+            width: 595px;
+            height: 260px;
+            max-width: 595px;
+            gap: 25px;
+        }
+
+        .client-item {
+            width: 140px !important;
+            height: 60px !important;
+        }
+
+        .client-item img{
+            width: 100px !important;
+            height: 40px;
+        }
+
+        /* Верхние карточки колонок 3 и 4 */
+        .columns-34-top {
+            display: flex;
+            gap: 20px;
+        }
+
+        .columns-34-top .column-3-top {
+            width: 434px;
+            height: 436px;
+        }
+
+        .columns-34-top .column-4-top {
+            width: 290px;
+            height: 436px;
+        }
+
+        .columns-34-top .column-4-top .card-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-bottom .steps{
+            width: 229px !important;
+            height: 50px !important;
+            cursor: pointer;
+        }
+
+        .card-bottom .steps:hover svg path {
+            fill: #fff;
+        }
+
+        .card-bottom .steps .skill-icon span {
+            opacity: 0.7;
+            font-weight: normal;
+            font-size: 14px;
+        }
+
+        /* Нижние карточки колонок 3 и 4 */
+        .columns-34-bottom {
+            display: flex;
+            gap: 20px;
+            margin-top: 12px;
+        }
+
+        .columns-34-bottom .column-3-bottom {
+            width: 302px;
+            height: 364px;
+        }
+
+        .column-3-bottom .card-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .column-3-bottom .contact {
+            width: 227px;
+            color: var(--secondary-color);
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .column-3-bottom .contact:hover svg g path{
+            fill: #fff;
+        }
+
+
+
+        .columns-34-bottom .column-4-bottom {
+            width: 422px;
+            height: 364px;
+        }
+
+        /* Анимация для бесконечного движения */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%); /* Двигаемся на половину ширины (первую копию) */
+            }
+        }
+
+        @keyframes scrollRight {
+            0% {
+                transform: translateX(-50%);
+            }
+            100% {
+                transform: translateX(0); /* Двигаемся на половину ширины (первую копию) */
+            }
+        }
+
+        @keyframes move-on-path {
+            0% {
+                offset-distance: 0%;
+            }
+            100% {
+                offset-distance: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Первая колонка -->
+    <div class="column-1">
+        <div class="card">
+            <div class="card-top">
+                <div class="card-subtitle"><img src="assets/icons/stacks/stacks.svg" alt="stacks"> <span>Stacks</span>
+                </div>
+                <div class="card-title">Мой арсенал разработки</div>
+            </div>
+            <div class="card-bottom">
+                <div class="stack-skills">
+
+                    <div class="stack-skill">
+                        <div class="skill-icon"><img src="assets/icons/stacks/php.svg" alt="php" class="stack-icon">
+                            <span>PHP</span></div>
+
+                        <!-- hover: transition: .2s; transform: rotate(-30deg); -->
+                        <div class="hover-effect">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                 fill="#999999">
+                                <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="stack-skill">
+                        <div class="skill-icon"><img src="assets/icons/stacks/figma.svg" alt="figma" class="stack-icon">
+                            <span>Figma</span></div>
+
+                        <!-- hover: transition: .2s; transform: rotate(-30deg); -->
+                        <div class="hover-effect">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                 fill="#999999">
+                                <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="stack-skill">
+                        <div class="skill-icon"><img src="assets/icons/stacks/python.svg" alt="python"
+                                                     class="stack-icon"> <span>Python</span></div>
+
+                        <!-- hover: transition: .2s; transform: rotate(-30deg); -->
+                        <div class="hover-effect">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                 fill="#999999">
+                                <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="stack-skill">
+                        <div class="skill-icon"><img src="assets/icons/stacks/javascript.svg" alt="javascript"
+                                                     class="stack-icon"> <span>JavaScript</span></div>
+
+                        <!-- hover: transition: .2s; transform: rotate(-30deg); -->
+                        <div class="hover-effect">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                 fill="#999999">
+                                <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div class="card-subtitle"><img src="assets/icons/portfolio/work.svg" alt="stacks">
+                    <span>Мои проекты</span></div>
+                <div class="card-title">Галерея работ</div>
+            </div>
+            <div class="card-bottom carousel-container__works">
+                <div class="carousel-works">
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work1.png" alt="work 1">
+                    </div>
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work2.png" alt="work 2">
+                    </div>
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work3.png" alt="work 3">
+                    </div>
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work4.png" alt="work 4">
+                    </div>
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work5.png" alt="work 5">
+                    </div>
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work6.png" alt="work 6">
+                    </div>
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work1.png" alt="work 1">
+                    </div>
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work2.png" alt="work 2">
+                    </div>
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work3.png" alt="work 3">
+                    </div>
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work4.png" alt="work 4">
+                    </div>
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work5.png" alt="work 5">
+                    </div>
+
+                    <div class="carousel-work__slide">
+                        <img src="assets/images/work6.png" alt="work 6">
+                    </div>
+
+                </div>
+                <div class="primary-button">
+                    Показать работы
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div class="card-subtitle"><img src="assets/icons/service/service.svg" alt="stacks">
+                    <span>Сервисы</span></div>
+                <div class="card-title">Набор решений</div>
+            </div>
+            <div class="card-bottom carousel-container__works">
+                <div class="carousel-service__container">
+                    <div class="carousel-service__left">
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/appdesign.svg"
+                                                           alt="mobile app design" class="service-icon"><span>Mobile App Design</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/nocode.svg" alt="web development"
+                                                           class="service-icon"><span>Web Development</span></div>
+                        </div>
+
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/webdesign.svg" alt="web design"
+                                                           class="service-icon"><span>Web Design</span></div>
+                        </div>
+
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/appdesign.svg"
+                                                           alt="mobile app design" class="service-icon"><span>Mobile App Design</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/nocode.svg" alt="web development"
+                                                           class="service-icon"><span>Web Development</span></div>
+                        </div>
+
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/webdesign.svg" alt="web design"
+                                                           class="service-icon"><span>Web Design</span></div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-service__right">
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/webdesign.svg" alt="web design"
+                                                           class="service-icon"><span>Web Design</span></div>
+                        </div>
+
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/nocode.svg" alt="web development"
+                                                           class="service-icon"><span>Web Development</span></div>
+                        </div>
+
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/appdesign.svg"
+                                                           alt="mobile app design" class="service-icon"><span>Mobile App Design</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/webdesign.svg" alt="web design"
+                                                           class="service-icon"><span>Web Design</span></div>
+                        </div>
+
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/nocode.svg" alt="web development"
+                                                           class="service-icon"><span>Web Development</span></div>
+                        </div>
+
+                        <div class="carousel-service__slide">
+                            <div class="service-icon"><img src="assets/icons/service/appdesign.svg"
+                                                           alt="mobile app design" class="service-icon"><span>Mobile App Design</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="primary-button">
+                    Показать решения
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Вторая колонка -->
+    <div class="column-2">
+        <div class="small-cards-container">
+            <div class="card statistics">
+                <div class="stats-number">56<span>+</span></div>
+                <div class="stats-card">
+                    <div class="stats-icon"><img src="assets/icons/statistics/projects.svg" alt="projects"> <span>Проектов</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card statistics">
+                <div class="stats-number">23<span>+</span></div>
+                <div class="stats-card">
+                    <div class="stats-icon"><img src="assets/icons/statistics/clients.svg" alt="clients">
+                        <span>Клиентов</span></div>
+                </div>
+            </div>
+
+            <div class="card statistics">
+                <div class="stats-number">06<span>+</span></div>
+                <div class="stats-card">
+                    <div class="stats-icon"><img src="assets/icons/statistics/years.svg" alt="years">
+                        <span>Лет работы</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-middle">
+
+            <div class="profile-top">
+                <div class="profile-avatar">
+                    <img src="assets/icons/profile/profile.svg" alt="">
+                </div>
+
+                <div class="profile-information">
+                    <div class="information-top">
+
+                        <div class="profile-status">
+                            <div class="profile-icon">
+                                <img src="assets/icons/profile/status.svg" alt="status"> <span>Уже готов к работе</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-resume">
+                            <span>Резюме</span>
+                            <img src="assets/icons/profile/resume.svg" alt="download resume">
+                        </div>
+
+                    </div>
+
+                    <div class="information-bottom">
+                        <span class="nickname">curdev</span>
+                        <span class="im">Я <span class="role">разработчик</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-middle">
+                <div class="profile-card">
+                    <div class="profile-icon"><img src="assets/icons/profile/locate.svg" alt="locate"> <span>Russia</span></div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-icon"><img src="assets/icons/profile/flag.svg" alt="flag"> <span>Moscow</span></div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-icon"><img src="assets/icons/profile/globus.svg" alt="globus"> <span>Russian & some English</span></div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-icon"><img src="assets/icons/profile/clock.svg" alt="clock"> <span>UTC+3 (MSK)</span></div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-icon"><img src="assets/icons/profile/skull.svg" alt="skull"> <span>DELETE SITE</span></div>
+                </div>
+            </div>
+
+            <div class="profile-bottom">
+                <div class="contact-button">
+                    <div class="contact-icon"><img src="assets/icons/profile/telegram.svg" alt="telegram"> Напиши мне (Telegram)</div>
+                    <div class="animated-dot"></div>
+                </div>
+
+                <div class="contact-button">
+                    <div class="contact-icon"><img src="assets/icons/profile/vk.svg" alt="vk"> Напиши мне (VK)</div>
+                    <div class="animated-dot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-bottom">
+            <div class="card-top">
+                <div class="card-subtitle"><img src="assets/icons/clients/clients.svg" alt="clients">
+                    <span>Клиенты</span></div>
+                <div class="card-title">Постоянное партнёрство</div>
+            </div>
+            <div class="card-bottom carousel-container__works">
+                <div class="carousel-service__container">
+                    <div class="carousel-service__left">
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/tiktok.svg" alt="tiktok" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/spotify.svg" alt="spotify" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/facebook.svg" alt="facebook" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/youtube.svg" alt="youtube" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/twitter.svg" alt="twitter" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/tiktok.svg" alt="tiktok" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/spotify.svg" alt="spotify" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/facebook.svg" alt="facebook" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/youtube.svg" alt="youtube" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/twitter.svg" alt="twitter" class="service-icon">
+                        </div>
+
+                    </div>
+
+
+                    <div class="carousel-service__right">
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/pinterest.svg" alt="pinterest" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/discord.svg" alt="discord" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/instagram.svg" alt="instagram" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/snapchat.svg" alt="snapchat" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/dribble.svg" alt="dribble" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/pinterest.svg" alt="pinterest" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/discord.svg" alt="discord" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/instagram.svg" alt="instagram" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/snapchat.svg" alt="snapchat" class="service-icon">
+                        </div>
+
+                        <div class="carousel-service__slide client-item">
+                            <img src="assets/icons/clients/dribble.svg" alt="dribble" class="service-icon">
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Колонки 3 и 4 в едином контейнере -->
+    <div class="columns-34-container">
+        <!-- Верхние карточки колонок 3 и 4 -->
+        <div class="columns-34-top">
+            <div class="card column-3-top">Колонка 3 - Карточка 1</div>
+            <div class="card column-4-top">
+                <div class="card-top">
+                    <div class="card-subtitle"><img src="assets/icons/steps/steps.svg" alt="steps">
+                        <span>Рабочий процесс</span></div>
+                    <div class="card-title">Схема работы</div>
+                </div>
+
+                <div class="card-bottom">
+
+                    <div class="stack-skill steps">
+                        <div class="skill-icon">
+                            <svg width="38" height="38" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect y="0.5" width="38" height="38" rx="6" fill="#282828"/>
+                                <path d="M18.3113 24.9778H20.3133V21.1962C20.3133 20.293 20.6504 19.8413 21.3244 19.8413C21.7154 19.8413 21.9985 20.0099 22.1738 20.3469C22.2681 20.5356 22.3153 20.812 22.3153 21.176V25.908C22.3153 26.2181 22.2277 26.481 22.0524 26.6967C21.8772 26.8989 21.6547 27 21.3851 27H13.64C13.2625 27 12.9794 26.9528 12.7907 26.8584C12.4536 26.6967 12.2851 26.4068 12.2851 25.9889C12.2851 25.571 12.4536 25.2811 12.7907 25.1193C12.9794 25.025 13.2625 24.9778 13.64 24.9778H16.2891V13.2489H13.64C13.2625 13.2489 12.9794 13.2017 12.7907 13.1073C12.4536 12.9456 12.2851 12.6557 12.2851 12.2378C12.2851 11.8199 12.4536 11.53 12.7907 11.3682C12.9794 11.2739 13.2625 11.2267 13.64 11.2267H18.3113V24.9778Z" fill="#CCCCCC"/>
+                            </svg>
+
+                            <span>Общаемся о проекте</span>
+                        </div>
+                    </div>
+
+                    <div class="stack-skill steps">
+                        <div class="skill-icon">
+                            <svg width="38" height="38" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect y="0.5" width="38" height="38" rx="6" fill="#282828"/>
+                                <path d="M15.0664 19.5282V24.0909H21.3282C21.6718 24.0909 21.9391 24.1355 22.13 24.2245C22.4482 24.3773 22.6073 24.6509 22.6073 25.0455C22.6073 25.44 22.4482 25.7136 22.13 25.8664C21.9391 25.9555 21.6718 26 21.3282 26H13.1382V19.5282C13.1382 18.9682 13.3227 18.51 13.6918 18.1536C14.0609 17.7845 14.5191 17.6 15.0664 17.6H20.6791V13.0182H14.4173C14.0609 13.0182 13.7936 12.9736 13.6155 12.8845C13.2973 12.7318 13.1382 12.4582 13.1382 12.0636C13.1382 11.6691 13.2973 11.3955 13.6155 11.2427C13.7936 11.1536 14.0609 11.1091 14.4173 11.1091H20.6791C21.2391 11.1091 21.6973 11.3 22.0536 11.6818C22.4227 12.0509 22.6073 12.5282 22.6073 13.1136V17.6C22.6073 18.1473 22.4227 18.6055 22.0536 18.9745C21.6973 19.3436 21.2391 19.5282 20.6791 19.5282H15.0664Z" fill="#CCCCCC"/>
+                            </svg>
+
+                            <span>Составляем ТЗ</span>
+                        </div>
+                    </div>
+
+                    <div class="stack-skill steps">
+                        <div class="skill-icon">
+                            <svg width="38" height="38" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect y="0.5" width="38" height="38" rx="6" fill="#282828"/>
+                                <path d="M19.9982 12.8836H14.1716C13.8509 12.8836 13.6074 12.8421 13.4411 12.7589C13.1441 12.6164 12.9956 12.361 12.9956 11.9927C12.9956 11.5176 13.2273 11.2325 13.6905 11.1375C13.7856 11.1137 13.9459 11.1018 14.1716 11.1018H20.0338C20.509 11.1018 20.9188 11.2562 21.2633 11.5651C21.6078 11.8739 21.78 12.2362 21.78 12.652V16.5185C21.78 17.1125 21.5602 17.6233 21.1207 18.0509C21.584 18.5736 21.8156 19.1794 21.8156 19.8684V23.2182C21.8156 23.729 21.6434 24.1566 21.2989 24.5011C20.9663 24.8337 20.5446 25 20.0338 25H14.1716C13.8509 25 13.6074 24.9584 13.4411 24.8753C13.1441 24.7327 12.9956 24.4773 12.9956 24.1091C12.9956 23.6339 13.2273 23.3488 13.6905 23.2538C13.7856 23.2301 13.9459 23.2182 14.1716 23.2182H20.0338V20.0109C20.0338 19.2982 19.719 18.9418 19.0895 18.9418H15.9535C15.609 18.9418 15.3595 18.9002 15.2051 18.8171C14.9081 18.6627 14.7596 18.4073 14.7596 18.0509C14.7596 17.6945 14.9081 17.4451 15.2051 17.3025C15.3714 17.2194 15.6208 17.1778 15.9535 17.1778H19.1073C19.7012 17.1778 19.9982 16.8096 19.9982 16.0731V12.8836Z" fill="#CCCCCC"/>
+                            </svg>
+
+                            <span>Ставим сроки и цену</span>
+                        </div>
+                    </div>
+
+                    <div class="stack-skill steps">
+                        <div class="skill-icon">
+                            <svg width="38" height="38" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect y="0.5" width="38" height="38" rx="6" fill="#282828"/>
+                                <path d="M15.734 18.61H19.28V13.714C19.28 13.378 19.322 13.126 19.406 12.958C19.562 12.658 19.82 12.508 20.18 12.508C20.552 12.508 20.81 12.658 20.954 12.958C21.038 13.138 21.08 13.39 21.08 13.714V18.61C21.68 18.682 21.98 18.97 21.98 19.474C21.98 19.738 21.89 19.96 21.71 20.14C21.542 20.308 21.332 20.392 21.08 20.392V23.794C21.08 24.142 21.038 24.394 20.954 24.55C20.798 24.85 20.54 25 20.18 25C19.808 25 19.55 24.85 19.406 24.55C19.322 24.37 19.28 24.118 19.28 23.794V20.392H13.934V12.166C13.934 11.83 13.976 11.578 14.06 11.41C14.216 11.11 14.474 10.96 14.834 10.96C15.194 10.96 15.452 11.11 15.608 11.41C15.692 11.566 15.734 11.818 15.734 12.166V18.61Z" fill="#CCCCCC"/>
+                            </svg>
+
+                            <span>Оплачиваем...</span>
+                        </div>
+                    </div>
+
+                    <div class="stack-skill steps">
+                        <div class="skill-icon">
+                            <svg width="38" height="38" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect y="0.5" width="38" height="38" rx="6" fill="#282828"/>
+                                <path d="M16.58 17.098H20.108C20.624 17.098 21.05 17.272 21.386 17.62C21.734 17.956 21.908 18.376 21.908 18.88V23.2C21.908 23.692 21.728 24.118 21.368 24.478C21.02 24.826 20.6 25 20.108 25H16.004C15.632 25 15.272 24.922 14.924 24.766L13.826 24.28C13.286 24.04 13.016 23.728 13.016 23.344C13.016 23.104 13.1 22.894 13.268 22.714C13.436 22.534 13.634 22.444 13.862 22.444C14.018 22.444 14.246 22.51 14.546 22.642L15.518 23.074C15.674 23.146 15.788 23.182 15.86 23.182H16.058L16.22 23.2H20.108V18.88H14.798V10.96H20.702C21.038 10.96 21.29 11.002 21.458 11.086C21.758 11.242 21.908 11.5 21.908 11.86C21.908 12.232 21.758 12.49 21.458 12.634C21.278 12.718 21.026 12.76 20.702 12.76H16.58V17.098Z" fill="#CCCCCC"/>
+                            </svg>
+
+                            <span>Получаем заказ!</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Нижние карточки колонок 3 и 4 -->
+        <div class="columns-34-bottom">
+            <div class="card column-3-bottom">
+                <div class="card-top">
+                    <div class="card-subtitle"><img src="assets/icons/clients/clients.svg" alt="clients">
+                        <span>Социальные сети</span></div>
+                    <div class="card-title">Подпишись</div>
+                </div>
+
+                <div class="card-bottom">
+
+                    <div class="stack-skill contact">
+                        <div class="skill-icon">
+                            <svg width="48" height="48" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="35" height="35" rx="6" fill="#282828"/>
+                                <g transform="translate(9, 9)">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.2653 1.70764C0 2.97293 0 5.00939 0 9.08234V9.80234C0 13.8753 0 15.9117 1.2653 17.177C2.5306 18.4423 4.56705 18.4423 8.64 18.4423H9.36C13.433 18.4423 15.4694 18.4423 16.7347 17.177C18 15.9117 18 13.8753 18 9.80234V9.08234C18 5.00939 18 2.97293 16.7347 1.70764C15.4694 0.442337 13.433 0.442337 9.36 0.442337H8.64C4.56705 0.442337 2.5306 0.442337 1.2653 1.70764ZM3.03754 5.91737C3.13504 10.5974 5.47504 13.4099 9.57754 13.4099H9.81007V10.7324C11.3176 10.8824 12.4575 11.9849 12.915 13.4099H15.045C14.46 11.2799 12.9225 10.1024 11.9625 9.65237C12.9225 9.09737 14.2725 7.74737 14.595 5.91737H12.6599C12.2399 7.40237 10.9951 8.75237 9.81007 8.87987V5.91737H7.875V11.1074C6.675 10.8074 5.16004 9.35237 5.09254 5.91737H3.03754Z" fill="#999999"/>
+                                </g>
+                            </svg>
+
+                            <span>curdev</span>
+                        </div>
+
+                        <!-- hover: transition: .2s; transform: rotate(-30deg); -->
+                        <div class="hover-effect">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                 fill="#999999">
+                                <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="stack-skill contact">
+                        <div class="skill-icon">
+                            <svg width="48" height="48" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="35" height="35" rx="6" fill="#282828"/>
+                                <g transform="translate(9, 9)">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18 9.44234C18 14.4129 13.9706 18.4423 9 18.4423C4.02944 18.4423 0 14.4129 0 9.44234C0 4.47177 4.02944 0.442337 9 0.442337C13.9706 0.442337 18 4.47177 18 9.44234ZM9.32252 7.08653C8.44714 7.45063 6.6976 8.20423 4.07392 9.34733C3.64787 9.51675 3.42469 9.6825 3.40438 9.84456C3.37004 10.1185 3.71303 10.2263 4.1801 10.3732C4.24364 10.3932 4.30947 10.4139 4.37695 10.4358C4.83648 10.5852 5.45462 10.7599 5.77597 10.7669C6.06746 10.7732 6.3928 10.653 6.75198 10.4063C9.20337 8.75159 10.4688 7.91519 10.5482 7.89716C10.6043 7.88444 10.6819 7.86845 10.7346 7.91522C10.7872 7.962 10.782 8.05058 10.7765 8.07434C10.7425 8.21919 9.39609 9.47091 8.69934 10.1187C8.48213 10.3206 8.32806 10.4639 8.29656 10.4966C8.226 10.5698 8.1541 10.6392 8.08499 10.7058C7.65808 11.1173 7.33793 11.426 8.10271 11.9299C8.47023 12.1721 8.76432 12.3724 9.05772 12.5722C9.37813 12.7904 9.69772 13.008 10.1112 13.2791C10.2166 13.3481 10.3172 13.4199 10.4152 13.4897C10.7881 13.7556 11.1231 13.9944 11.5369 13.9563C11.7774 13.9342 12.0258 13.708 12.152 13.0336C12.4502 11.4397 13.0362 7.98618 13.1717 6.56307C13.1835 6.43838 13.1686 6.27881 13.1566 6.20877C13.1446 6.13872 13.1196 6.03892 13.0285 5.96504C12.9207 5.87754 12.7542 5.85909 12.6798 5.8604C12.3413 5.86636 11.8219 6.04695 9.32252 7.08653Z" fill="#999999"/>
+                                </g>
+                            </svg>
+
+                            <span>curdev</span>
+                        </div>
+
+                        <!-- hover: transition: .2s; transform: rotate(-30deg); -->
+                        <div class="hover-effect">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                 fill="#999999">
+                                <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="stack-skill contact">
+                        <div class="skill-icon">
+                            <svg width="48" height="48" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="35" height="35" rx="6" fill="#282828"/>
+                                <g transform="translate(9, 9)">
+                                    <path d="M15.2378 3.55903C14.0905 3.03262 12.8602 2.64478 11.5739 2.42265C11.5505 2.41837 11.5271 2.42908 11.515 2.45051C11.3568 2.73192 11.1815 3.09904 11.0588 3.3876C9.6753 3.18047 8.29889 3.18047 6.94374 3.3876C6.82099 3.09263 6.63936 2.73192 6.48043 2.45051C6.46836 2.4298 6.44496 2.41908 6.42154 2.42265C5.13593 2.64407 3.90567 3.03191 2.7577 3.55903C2.74776 3.56332 2.73924 3.57047 2.73359 3.57974C0.400044 7.06602 -0.239213 10.4666 0.0743851 13.825C0.075804 13.8414 0.0850274 13.8572 0.0977985 13.8672C1.63741 14.9978 3.12878 15.6842 4.59246 16.1392C4.61588 16.1463 4.6407 16.1378 4.65561 16.1185C5.00184 15.6457 5.31048 15.1471 5.57511 14.6228C5.59072 14.5921 5.57582 14.5557 5.5439 14.5435C5.05435 14.3578 4.5882 14.1314 4.1398 13.8743C4.10433 13.8536 4.10149 13.8029 4.13412 13.7786C4.22848 13.7079 4.32286 13.6343 4.41297 13.56C4.42927 13.5464 4.45198 13.5436 4.47115 13.5522C7.41696 14.8971 10.6062 14.8971 13.5172 13.5522C13.5364 13.5429 13.5591 13.5457 13.5761 13.5593C13.6662 13.6336 13.7606 13.7079 13.8557 13.7786C13.8883 13.8029 13.8862 13.8536 13.8507 13.8743C13.4023 14.1364 12.9361 14.3578 12.4459 14.5428C12.414 14.555 12.3998 14.5921 12.4154 14.6228C12.6857 15.1464 12.9943 15.6449 13.3342 16.1178C13.3484 16.1378 13.3739 16.1463 13.3973 16.1392C14.8681 15.6842 16.3595 14.9978 17.8991 13.8672C17.9126 13.8572 17.9211 13.8422 17.9225 13.8257C18.2978 9.94302 17.2939 6.57033 15.2612 3.58045C15.2562 3.57047 15.2477 3.56332 15.2378 3.55903ZM6.01502 11.7801C5.12812 11.7801 4.39735 10.9659 4.39735 9.96589C4.39735 8.96593 5.11395 8.15169 6.01502 8.15169C6.92315 8.15169 7.64686 8.97308 7.63266 9.96589C7.63266 10.9659 6.91606 11.7801 6.01502 11.7801ZM11.9961 11.7801C11.1092 11.7801 10.3784 10.9659 10.3784 9.96589C10.3784 8.96593 11.095 8.15169 11.9961 8.15169C12.9042 8.15169 13.6279 8.97308 13.6137 9.96589C13.6137 10.9659 12.9042 11.7801 11.9961 11.7801Z" fill="#999999"/>
+                                </g>
+                            </svg>
+
+                            <span>curdev</span>
+                        </div>
+
+                        <!-- hover: transition: .2s; transform: rotate(-30deg); -->
+                        <div class="hover-effect">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                 fill="#999999">
+                                <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card column-4-bottom">Колонка 4 - Карточка 2</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
