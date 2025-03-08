@@ -276,7 +276,9 @@
 
                     <div class="information-bottom">
                         <span class="nickname">curdev</span>
-                        <span class="im">Я <span class="role">разработчик</span></span>
+                        <div class="im">Я <span class="role-container">
+                        <div class="flip-card"></div>
+                        </span></div>
                     </div>
                 </div>
             </div>
@@ -602,11 +604,13 @@
 
                 <div class="call-bottom">
                     <div class="call-block">
-                        <button class="call-button"><img src="assets/icons/call/mail.svg" alt="mail"> <span>Написать на почту</span></button>
+                        <button class="call-button"><img src="assets/icons/call/mail.svg" alt="mail"> <span>Написать на почту</span>
+                        </button>
                         <div class="animated-dot"></div>
                     </div>
                     <div class="call-block">
-                        <button class="call-button"><img src="assets/icons/call/calendar.svg" alt="calendar"> <span>Записаться на звонок</span></button>
+                        <button class="call-button"><img src="assets/icons/call/calendar.svg" alt="calendar"> <span>Записаться на звонок</span>
+                        </button>
                         <div class="animated-dot"></div>
                     </div>
                 </div>
@@ -615,6 +619,70 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    const words = [
+        'разработчик',
+        'добряк',
+        'дизайнер',
+        'весельчак',
+        'сетевой администратор'
+    ];
+
+    const flipCard = document.querySelector('.flip-card');
+    let currentIndex = 0;
+    let currentWordElement;
+
+    // Создаем начальные элементы для слов
+    function createWordElement(text, className) {
+        const wordEl = document.createElement('div');
+        wordEl.className = `word ${className}`;
+        wordEl.textContent = text;
+        return wordEl;
+    }
+
+    // Инициализация с первым словом
+    currentWordElement = createWordElement(words[0], 'current');
+    flipCard.appendChild(currentWordElement);
+
+    function flipToNextWord() {
+        const nextIndex = (currentIndex + 1) % words.length;
+        const nextWordText = words[nextIndex];
+
+        // Создаем элемент для следующего слова
+        const nextWord = createWordElement(nextWordText, 'next');
+        flipCard.appendChild(nextWord);
+
+        // Сохраняем ссылку на текущее слово
+        const oldWord = currentWordElement;
+
+        // Запускаем анимацию текущего слова (уходящего вверх)
+        oldWord.style.transform = 'rotateX(90deg)';
+
+        // Через небольшую задержку запускаем анимацию следующего слова (входящего снизу)
+        setTimeout(() => {
+            nextWord.style.transform = 'rotateX(0deg)';
+            nextWord.classList.remove('next');
+            nextWord.classList.add('current');
+
+            // Обновляем текущий элемент и индекс
+            currentWordElement = nextWord;
+            currentIndex = nextIndex;
+
+            // Удаляем старый элемент после завершения анимации
+            setTimeout(() => {
+                if (oldWord && oldWord.parentNode === flipCard) {
+                    flipCard.removeChild(oldWord);
+                }
+            }, 600);
+
+        }, 300); // Половина времени анимации для эффекта каскада
+    }
+
+    // Запускаем анимацию с интервалом
+    setInterval(flipToNextWord, 3000);
+</script>
 
 </body>
 </html>

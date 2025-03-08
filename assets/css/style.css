@@ -365,7 +365,54 @@ body {
     font-weight: 400;
 }
 
-.profile-information .information-bottom .role {
+.im {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.role-container {
+    display: inline-block;
+    position: relative;
+    margin-left: 10px; /* Фиксированное расстояние от "Я" */
+}
+
+.flip-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.word {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    backface-visibility: hidden;
+    transition: transform 0.6s ease-in-out;
+    transform-origin: center center;
+}
+
+.word.current {
+    transform: rotateX(0deg);
+    z-index: 2;
+}
+
+.word.next {
+    transform: rotateX(-90deg);
+    z-index: 1;
+}
+
+.profile-information .information-bottom .role-container {
     color: #ffffff;
     font-weight: 600;
 }
@@ -389,6 +436,10 @@ body {
     justify-content: center;
     align-items: center;
     gap: 8px;
+}
+
+.profile-icon span {
+    font-size: 15px;
 }
 
 .profile-bottom {
